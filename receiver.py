@@ -83,7 +83,11 @@ with sqlite3.connect(os.getenv("DATABASE_NAME")) as conn:
                 cursor.execute("ROLLBACK")
                 
                 # Log the exception
-                logging.error(f"Error: {e}")
+                logging.error("Error: {}".format(e))
+
+            finally:
+                # commit connection
+                conn.commit()
         
         # callback declaring
         channel.basic_consume(queue=queue_name, auto_ack=True, on_message_callback=callback)
