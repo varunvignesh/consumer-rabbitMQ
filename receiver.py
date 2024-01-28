@@ -25,9 +25,10 @@ def main():
         # convert string to json object/dict
         received_data = json.loads(body)
         
-        # using ast as the json have single quotes string
+        # using ast as the json data have single quotes string, else would've used json as that's specifically designed for efficient JSON processing.
         meta_info = ast.literal_eval(received_data.get('meta_info'))
 
+        # Note: could use bulk insert for perfomarce, if the case arises.
         # insert values for product_db
         cursor.execute(
             """     
